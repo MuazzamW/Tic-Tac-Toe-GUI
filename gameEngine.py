@@ -16,3 +16,5 @@
 # - reset game function (return a new instance of the gameEngine class)
 # - write to game log
 
+class gameEngine:
+    pass
