@@ -37,7 +37,7 @@ class Welcome:
 
     def startGame(self):
         self.root.withdraw()
-        g1 = gameEngine()
+        g1 = gameScreen()
 
     def viewGameLog(self):
         # ----- have gamelog be toplevel becuase we don't want to withdraw this class
