@@ -20,9 +20,9 @@ class gameScreen:
         self.bottomframe = tk.Frame(self.root2)
 
         # creating photoimages
-        self.photoimage0 = tk.PhotoImage(file = 'blankimage.png').subsample(2,2)
-        self.photoimage1 = tk.PhotoImage(file = 'oicon.png')
-        self.photoimage2 = tk.PhotoImage(file = 'xicon.png')
+        self.photoimage0 = tk.PhotoImage(file = 'Images/blankimage.png').subsample(2,2)
+        self.photoimage1 = tk.PhotoImage(file = 'Images/oicon.png')
+        self.photoimage2 = tk.PhotoImage(file = 'Images/xicon.png')
 
         # creating lists for images and for grid
         self.images = [self.photoimage0, self.photoimage1, self.photoimage2]
