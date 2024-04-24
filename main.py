@@ -8,7 +8,7 @@
 # - quit game button -> closes screen
 # - create a gameEngine object
 import tkinter as tk
-from gameEngine import gameEngine
+from gameScreen import gameScreen
 
 class Welcome:
     def __init__(self):
@@ -20,13 +20,13 @@ class Welcome:
         # creating labels
         self.title = tk.Label(self.root, text = 'Tic Tac Toe', font = ('Arial', 30))
 
+        # placing labels
+        self.title.grid(row = 0, column = 1, padx= 0, pady= 0)
+
         # creating buttons
         self.quit_button = tk.Button(self.root, text = 'Quit', command = lambda:self.root.destroy())
         self.view_log = tk.Button(self.root, text = 'Game Log', command = lambda:self.viewGameLog())
         self.new_game = tk.Button(self.root, text = 'Start Game', command = lambda:self.startGame())
-
-        # placing labels
-        self.title.grid(row = 0, column = 1, padx= 0, pady= 0)
 
         # placing buttons
         self.quit_button.grid(row = 1, column = 0, padx = 5, pady = 5)
@@ -36,7 +36,7 @@ class Welcome:
         self.root.mainloop()
 
     def startGame(self):
-        self.root.withdraw()
+        self.root.destroy()
         g1 = gameScreen()
 
     def viewGameLog(self):
