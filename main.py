@@ -36,6 +36,7 @@ class Welcome:
         self.root.mainloop()
 
     def startGame(self):
+        
         self.root.destroy()
         g1 = gameScreen()
 

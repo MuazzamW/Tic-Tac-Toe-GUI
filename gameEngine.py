@@ -85,6 +85,8 @@ class gameEngine:
         with open('data.json', 'a', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
+
+
 class LocationError(Exception):
     def __init__(self,msg):
         super().__init__(msg)

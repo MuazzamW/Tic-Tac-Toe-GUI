@@ -7,9 +7,20 @@
 # - add a reset button at the bottom
 # - quit game button
 import tkinter as tk
+from gameEngine import gameEngine
+
+class Button(tk.Button):
+    def __init__(self, x, y, image):
+        super().__init__()
+        self.__x = x
+        self.__y = y
+        self.__image = image
 
 class gameScreen:
-    def __init__(self):
+    def __init__(self, xPlayer, oPlayer):
+
+        self.__gameEngine = gameEngine(xPlayer, oPlayer)
+
         # initialize
         self.root2 = tk.Tk()
         self.root2.geometry('400x400')
@@ -26,17 +37,20 @@ class gameScreen:
 
         # creating lists for images and for grid
         self.images = [self.photoimage0, self.photoimage1, self.photoimage2]
-        self.button_grid = [[], []]
         
         # (TEMPORARY) creating game buttons 
         # self.button1 = tk.Button(self.topframe, image = self.photoimage0, command = lambda:self.root2.destroy)
         # self.button1.grid(row = 0, column = 0, padx = 5, pady = 5)
         # self.button2 = tk.Button(self.topframe, image = self.photoimage1, command = lambda:self.root2.destroy)
         # self.button2.grid(row = 1, column = 0, padx = 5, pady = 5)
+        
+        self.__buttonGrid = []
+
         for row in range(3):
             for column in range(3):
-                self.button2 = tk.Button(self.topframe, image = self.photoimage2, command = lambda:self.root2.destroy)
-                self.button2.grid(row = row, column = column, padx = 5, pady = 5)
+               self.__buttonGrid.append(Button(row, column, self.topframe,image = self.photoimage1, command = lambda:self.checkWinner()))
+               self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
+        
 
         # create quit and reset buttons
         self.quit_button = tk.Button(self.bottomframe, text = 'Quit', command = lambda:self.root2.destroy())
@@ -52,11 +66,13 @@ class gameScreen:
 
         self.root2.mainloop()
     
+    def checkWinner(self):
+        if not self.__gameEngine.checkWinner() is None:
+            pass
+    
     def resetGame(self):
         self.root2.destroy()
         g1 = gameScreen()
 
 
-class Button(tk.Button):
-    def __init__(self):
-        pass
+
