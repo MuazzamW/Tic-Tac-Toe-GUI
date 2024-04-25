@@ -69,6 +69,12 @@ class gameEngine:
         
         return None
     
+    def getWinner(self):
+        if not self.checkWinner is None:
+            return self.checkWinner[0]
+        else:
+            return None
+    
     def writeToLog(self):
         data = {
             #format grid as 3x3 grid
