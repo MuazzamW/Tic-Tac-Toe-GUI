@@ -42,7 +42,6 @@ class gameEngine:
         self.__game_over = False
     
     def makeMove(self,xPos, yPos):
-        print(self.__grid[yPos][xPos])
         if self.__grid[yPos][xPos] is None:
             self.__grid[yPos][xPos] = self.__turn
         else:
@@ -57,9 +56,6 @@ class gameEngine:
         for row in self.__grid:
             if row[0] == row[1] == row[2] and row[0] is not None:
                 self.__game_over = True
-                print(self.__grid)
-                print(row)
-                print(row[0])
                 return (row[0],self.__game_over)
         
         #check columns
