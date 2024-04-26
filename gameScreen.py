@@ -10,8 +10,8 @@ import tkinter as tk
 from gameEngine import gameEngine
 
 class Button(tk.Button):
-    def __init__(self, x, y, image):
-        super().__init__()
+    def __init__(self, x, y, image,command,master):
+        super().__init__(image = image, command = command,master = master)
         self.__x = x
         self.__y = y
         self.__image = image
@@ -48,7 +48,7 @@ class gameScreen:
 
         for row in range(3):
             for column in range(3):
-               self.__buttonGrid.append(Button(row, column, self.topframe,image = self.photoimage1, command = lambda:self.checkWinner()))
+               self.__buttonGrid.append(Button(row, column, image = self.photoimage1, command = lambda:self.checkWinner(),master = self.topframe))
                self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
         
 
@@ -67,6 +67,7 @@ class gameScreen:
         self.root2.mainloop()
     
     def checkWinner(self):
+        print('button clicked')
         if not self.__gameEngine.checkWinner() is None:
             pass
     
@@ -74,5 +75,5 @@ class gameScreen:
         self.root2.destroy()
         g1 = gameScreen()
 
-
+g1=gameScreen("Jeff","bob")
 
