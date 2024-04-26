@@ -9,6 +9,7 @@
 # - create a gameEngine object
 import tkinter as tk
 from gameScreen import gameScreen
+from gameLogScreen import gameLogScreen
 
 class Welcome:
     def __init__(self):
@@ -68,6 +69,7 @@ class Welcome:
         g1 = gameScreen(self.player1, self.player2)
 
     def viewGameLog(self):
+        logScreen = gameLogScreen()
         # ----- have gamelog be toplevel becuase we don't want to withdraw this class
         # instantiate gameLogScreen
         pass

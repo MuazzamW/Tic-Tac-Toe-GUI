@@ -83,12 +83,12 @@ class gameEngine:
                     {self.__grid[1]}
                     {self.__grid[2]} 
                     """,
-            "winner": self.checkWinner()[0],
+            "winner": "xPLayer", #self.checkWinner()[0],
             "turns": self.__move_counter,
             "Player X": self.__xPlayer,
             "Player O": self.__oPlayer
         }
-        with open('data.json', 'a', encoding='utf-8') as f:
+        with open('GameLog/gameLog.json', 'a', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
 
@@ -97,3 +97,6 @@ class LocationError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
 
+
+g1 = gameEngine()
+g1.writeToLog()

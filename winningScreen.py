@@ -8,7 +8,7 @@ import tkinter as tk
 from gameEngine import gameEngine
 from main import Welcome
 
-class WinScreen(gameEngine):
+class WinScreen():
     def __init__(self):
         # initialize
         self.root = tk.Tk()
@@ -19,7 +19,7 @@ class WinScreen(gameEngine):
         if self.getWinner() == None:
             self.text = tk.Label(self.root, text = 'The game has resulted in a tie.')
         else:
-            self.text = tk.Label(self.root, text = f'{self.getWinnder()} has won!')
+            self.text = tk.Label(self.root, text = f'{self.getWinner()} has won!')
 
         # creating labels
         self.title = tk.Label(self.root, text = 'Congrats!', font = ('Arial', 30))
