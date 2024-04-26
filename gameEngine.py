@@ -25,7 +25,6 @@ class gameEngine:
         self.__xPlayer = xPlayer
         self.__oPlayer = oPlayer
         self.reset()
-        
     
     def getPlayerX(self):
         return self.__xPlayer
@@ -49,6 +48,8 @@ class gameEngine:
         else:
             raise LocationError("Invalid location, please try again.") 
         self.__move_counter += 1
+    
+    def changeTurn(self):
         self.__turn = "X" if self.__turn == "O" else "O"
     
     def checkWinner(self):
@@ -56,6 +57,9 @@ class gameEngine:
         for row in self.__grid:
             if row[0] == row[1] == row[2] and row[0] is not None:
                 self.__game_over = True
+                print(self.__grid)
+                print(row)
+                print(row[0])
                 return (row[0],self.__game_over)
         
         #check columns
@@ -87,12 +91,12 @@ class gameEngine:
                     {self.__grid[1]}
                     {self.__grid[2]} 
                     """,
-            "winner": "xPLayer", #self.checkWinner()[0],
+            "winner": self.checkWinner()[0],
             "turns": self.__move_counter,
             "Player X": self.__xPlayer,
             "Player O": self.__oPlayer
         }
-        with open('GameLog/gameLog.json', 'a', encoding='utf-8') as f:
+        with open('data.json', 'a', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
 
 
@@ -101,6 +105,3 @@ class LocationError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
 
-
-g1 = gameEngine()
-g1.writeToLog()

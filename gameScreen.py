@@ -8,6 +8,7 @@
 # - quit game button
 import tkinter as tk
 from gameEngine import gameEngine
+from winningScreen import WinScreen
 
 class Button(tk.Button):
     def __init__(self, x, y, image,command,master):
@@ -62,25 +63,29 @@ class gameScreen:
         self.root2.mainloop()
     
     def checkWinner(self, row, column):
-        # check for winner and switch player image, update in gameengine
         print('button clicked')
-        print(column, row)
 
         # check if move can be made, and update grid in gameengine
         self.__gameEngine.makeMove(column, row)
 
         # update grid in gamescreen
-        tempimage = tk.PhotoImage(file = 'Images/Xicon.png')
-        self.__buttonGrid[column*3+row].configure(image = tempimage)
-        self.__buttonGrid[column*3+row].photo = tempimage
+        tempimage = tk.PhotoImage(file = 'Images/' + self.__gameEngine.getTurn() + 'icon.png')
+        self.__buttonGrid[row*3+column].configure(image = tempimage)
+        self.__buttonGrid[row*3+column].photo = tempimage
 
-        print(self.__buttonGrid[column*3+row].getX(), self.__buttonGrid[column*3+row].getY())
-        print(row*3+column)
-
-        
-
-        if not self.__gameEngine.checkWinner() is None:
+        # check for winner
+        print(self.__gameEngine.checkWinner())
+        if self.__gameEngine.checkWinner() == ('Tie', True):
+            w1 = WinScreen(None)
+        elif not self.__gameEngine.checkWinner() is None:
+            self.root2.destroy()
+            w1 = WinScreen(self.__gameEngine.getTurn())
             pass
+        else:
+            # switch turns
+            self.__gameEngine.changeTurn()
+
+
     
     def resetGame(self):
         self.root2.destroy()
