@@ -38,7 +38,7 @@ class Welcome:
     def startGame(self):
         # withdraw main window
         self.root.withdraw()
-        
+
         # initialize window that asks for user names
         self.top = tk.Toplevel(self.root)
         
@@ -71,7 +71,6 @@ class Welcome:
         g1 = gameScreen(self.player1, self.player2, self.root)
 
     def viewGameLog(self):
-        # ----- have gamelog be toplevel becuase we don't want to withdraw this class
         # instantiate gameLogScreen
         pass
 

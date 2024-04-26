@@ -3,7 +3,8 @@ import tkinter as tk
 class gameLogScreen():
     
     def __init__(self):
-        self.root = tk.Tk()
+        # creating logscreen as a toplevel that can be shown without destroying the previous screen (everything else about it is the same)
+        self.root = tk.Toplevel()
         self.root.geometry('400x400')
         self.root.title('Game Logs')
 
