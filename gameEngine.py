@@ -27,6 +27,12 @@ class gameEngine:
         self.reset()
         
     
+    def getPlayerX(self):
+        return self.__xPlayer
+    
+    def getPlayerO(self):
+        return self.__oPlayer
+
     def reset(self):
         self.__grid = [[None, None, None], [None, None, None], [None, None, None]]
         self.__turn = random.choice(['X', 'O'])

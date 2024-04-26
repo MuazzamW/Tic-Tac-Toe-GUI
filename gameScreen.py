@@ -73,7 +73,5 @@ class gameScreen:
     
     def resetGame(self):
         self.root2.destroy()
-        g1 = gameScreen()
-
-g1=gameScreen("Jeff","bob")
+        g1 = gameScreen(self.__gameEngine.getPlayerX(), self.__gameEngine.getPlayerO())
 
