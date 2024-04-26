@@ -32,6 +32,9 @@ class gameEngine:
     
     def getPlayerO(self):
         return self.__oPlayer
+    
+    def getTurn(self):
+        return self.__turn
 
     def reset(self):
         self.__grid = [[None, None, None], [None, None, None], [None, None, None]]
@@ -40,7 +43,8 @@ class gameEngine:
         self.__game_over = False
     
     def makeMove(self,xPos, yPos):
-        if not self.__grid[yPos][xPos] is None:
+        print(self.__grid[yPos][xPos])
+        if self.__grid[yPos][xPos] is None:
             self.__grid[yPos][xPos] = self.__turn
         else:
             raise LocationError("Invalid location, please try again.") 

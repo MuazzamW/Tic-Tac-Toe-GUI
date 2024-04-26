@@ -15,6 +15,12 @@ class Button(tk.Button):
         self.__x = x
         self.__y = y
         self.__image = image
+    
+    def getX(self):
+        return self.__x
+
+    def getY(self):
+        return self.__y
 
 class gameScreen:
     def __init__(self, xPlayer, oPlayer):
@@ -31,24 +37,13 @@ class gameScreen:
         self.bottomframe = tk.Frame(self.root2)
 
         # creating photoimages
-        self.photoimage0 = tk.PhotoImage(file = 'Images/blankimage.png').subsample(2,2)
-        self.photoimage1 = tk.PhotoImage(file = 'Images/oicon.png')
-        self.photoimage2 = tk.PhotoImage(file = 'Images/xicon.png')
-
-        # creating lists for images and for grid
-        self.images = [self.photoimage0, self.photoimage1, self.photoimage2]
-        
-        # (TEMPORARY) creating game buttons 
-        # self.button1 = tk.Button(self.topframe, image = self.photoimage0, command = lambda:self.root2.destroy)
-        # self.button1.grid(row = 0, column = 0, padx = 5, pady = 5)
-        # self.button2 = tk.Button(self.topframe, image = self.photoimage1, command = lambda:self.root2.destroy)
-        # self.button2.grid(row = 1, column = 0, padx = 5, pady = 5)
+        self.photoimageBlank = tk.PhotoImage(file = 'Images/blankimage.png')
         
         self.__buttonGrid = []
 
         for row in range(3):
             for column in range(3):
-               self.__buttonGrid.append(Button(row, column, image = self.photoimage1, command = lambda:self.checkWinner(),master = self.topframe))
+               self.__buttonGrid.append(Button(column, row, image = self.photoimageBlank, command = lambda row = row, column = column:self.checkWinner(row, column), master = self.topframe))
                self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
         
 
@@ -66,8 +61,24 @@ class gameScreen:
 
         self.root2.mainloop()
     
-    def checkWinner(self):
+    def checkWinner(self, row, column):
+        # check for winner and switch player image, update in gameengine
         print('button clicked')
+        print(column, row)
+
+        # check if move can be made, and update grid in gameengine
+        self.__gameEngine.makeMove(column, row)
+
+        # update grid in gamescreen
+        tempimage = tk.PhotoImage(file = 'Images/Xicon.png')
+        self.__buttonGrid[column*3+row].configure(image = tempimage)
+        self.__buttonGrid[column*3+row].photo = tempimage
+
+        print(self.__buttonGrid[column*3+row].getX(), self.__buttonGrid[column*3+row].getY())
+        print(row*3+column)
+
+        
+
         if not self.__gameEngine.checkWinner() is None:
             pass
     
