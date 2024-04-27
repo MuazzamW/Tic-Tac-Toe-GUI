@@ -80,22 +80,27 @@ class gameEngine:
         return None
     
     def writeToLog(self):
-        data = {
-            #format grid as 3x3 grid
-            "grid": f"""
-                    {self.__grid[0]}
-                    {self.__grid[1]}
-                    {self.__grid[2]} 
-                    """,
-            "winner": self.checkWinner()[0],
-            "turns": self.__move_counter,
-            "Player X": self.__xPlayer,
-            "Player O": self.__oPlayer
-        }
-        with open('data.json', 'a', encoding='utf-8') as f:
+
+        with open('data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)    
+            entry = {
+                #format grid as 3x3 grid
+                "grid": f"""{self.__grid[0]},{self.__grid[1]},{self.__grid[2]} 
+                        """,
+                "winner": "hi",#self.checkWinner()[0],
+                "turns": self.__move_counter,
+                "Player X": self.__xPlayer,
+                "Player O": self.__oPlayer
+            }
+            data.append(entry)
+
+        with open('data.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
-
-
+    
+    def loadLogs(self):
+        with open('data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data
 
 class LocationError(Exception):
     def __init__(self,msg):

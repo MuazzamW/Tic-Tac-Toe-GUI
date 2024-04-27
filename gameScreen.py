@@ -74,10 +74,13 @@ class gameScreen:
 
         # check for winner
         if self.__gameEngine.checkWinner() == ('Tie', True):
+            self.__gameEngine.writeToLog()
             w1 = WinScreen(None, self.parent)
         elif not self.__gameEngine.checkWinner() is None:
+            self.__gameEngine.writeToLog()
             self.root2.destroy()
             w1 = WinScreen(self.__gameEngine.getTurn(), self.parent)
+            
             pass
         else:
             # switch turns

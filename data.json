@@ -1,0 +1,16 @@
+[
+    {
+        "grid": "\n                        [None, None, None]\n                        [None, None, None]\n                        [None, None, None] \n                        ",
+        "winner": "hi",
+        "turns": 0,
+        "Player X": "Player X",
+        "Player O": "Player O"
+    },
+    {
+        "grid": "\n                        ['X', 'O', 'X']\n                        [None, 'X', 'O']\n                        ['O', None, 'X'] \n                        ",
+        "winner": "hi",
+        "turns": 7,
+        "Player X": "aas",
+        "Player O": "mas"
+    }
+]

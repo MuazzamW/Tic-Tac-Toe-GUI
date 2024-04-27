@@ -12,3 +12,13 @@ class gameLogScreen():
         # creating two frames -> top frame is for the title and bottom is to show all the game logs
         self.topframe = tk.Frame(self.root)
         self.bottomframe = tk.Frame(self.root)
+
+        # creating labels for the title and the game logs
+        self.title = tk.Label(self.topframe, text = 'Game Logs', font = ('Arial', 30))
+        
+
+        # placing labels
+        self.title.grid(row = 0, column = 1, padx= 0, pady= 0)
+        self.logs.grid(row = 0, column = 0, padx= 0, pady= 0)
+
+
