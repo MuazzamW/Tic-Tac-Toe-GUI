@@ -37,6 +37,9 @@ class Welcome:
 
     def startGame(self):
         
+        #modal to get player names
+        
+
         self.root.destroy()
         g1 = gameScreen()
 
