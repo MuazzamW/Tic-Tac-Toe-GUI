@@ -31,7 +31,7 @@ class gameScreen:
         # initialize
         self.parent = parent
         self.root2 = tk.Toplevel()
-        self.root2.geometry('400x400')
+        self.root2.geometry('400x415')
         self.root2.title('Game Screen')
 
         # creating two frames
@@ -54,8 +54,12 @@ class gameScreen:
         self.reset_button = tk.Button(self.bottomframe, text = 'Reset', command = lambda:self.resetGame())
 
         # grid quit and reset buttons
-        self.quit_button.grid(row = 0, column = 0, padx = 5, pady = 5)
-        self.reset_button.grid(row = 0, column = 1, padx = 5, pady = 5)
+        self.quit_button.grid(row = 1, column = 0, padx = 5, pady = 5)
+        self.reset_button.grid(row = 1, column = 1, padx = 5, pady = 5)
+
+        #player indication
+        self.player = tk.Label(self.bottomframe, text = self.__gameEngine.getTurn() + "'s turn")
+        self.player.grid(row = 0, column = 2, padx = 5, pady = 5)
 
         # pack frames
         self.topframe.pack()

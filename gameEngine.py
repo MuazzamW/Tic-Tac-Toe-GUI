@@ -1,5 +1,6 @@
 import random
 import json
+import datetime
 
 #class gameEngine
 # Description: This class is the main engine for the game, makes all decisions
@@ -81,24 +82,25 @@ class gameEngine:
     
     def writeToLog(self):
 
-        with open('data.json', 'r', encoding='utf-8') as f:
+        with open('GameLog/data.json', 'r', encoding='utf-8') as f:
             data = json.load(f)    
             entry = {
                 #format grid as 3x3 grid
+                "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "grid": f"""{self.__grid[0]},{self.__grid[1]},{self.__grid[2]} 
                         """,
-                "winner": "hi",#self.checkWinner()[0],
+                "winner": (self.checkWinner()[0], self.__xPlayer if self.checkWinner()[0] == "X" else self.__oPlayer if self.checkWinner()[0] == "O" else "Tie"),
                 "turns": self.__move_counter,
                 "Player X": self.__xPlayer,
                 "Player O": self.__oPlayer
             }
             data.append(entry)
 
-        with open('data.json', 'w', encoding='utf-8') as f:
+        with open('GameLog/data.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
     
     def loadLogs(self):
-        with open('data.json', 'r', encoding='utf-8') as f:
+        with open('GameLog/data.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         return data
 

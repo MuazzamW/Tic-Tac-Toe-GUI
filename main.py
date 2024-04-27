@@ -9,6 +9,8 @@
 # - create a gameEngine object
 import tkinter as tk
 from gameScreen import gameScreen
+from audioPlayer import AudioPlayer
+import threading
 
 class Welcome:
     def __init__(self):
@@ -33,7 +35,13 @@ class Welcome:
         self.new_game.grid(row = 1, column = 1, padx = 5, pady = 5)
         self.view_log.grid(row = 1, column = 2, padx = 5, pady = 5)
 
-        self.root.mainloop()
+        #open audio player on a new thread
+        t1 = threading.Thread(target = AudioPlayer)
+        t1.start()
+
+        #start game on new thread
+        t2 = threading.Thread(target = self.root.mainloop)
+        t2.start()
 
     def startGame(self):
         # withdraw main window

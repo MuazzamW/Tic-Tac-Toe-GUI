@@ -1,0 +1,51 @@
+[
+    {
+        "date": "2024-04-27 17:57:42",
+        "grid": "['X', 'O', 'X'],[None, 'O', 'O'],[None, 'O', 'X'] \n                        ",
+        "winner": "hi",
+        "turns": 7,
+        "Player X": "a",
+        "Player O": "b"
+    },
+    {
+        "date": "2024-04-27 18:39:43",
+        "grid": "['X', 'O', 'X'],['X', 'O', None],[None, 'O', None] \n                        ",
+        "winner": "O",
+        "turns": 6,
+        "Player X": "aasees",
+        "Player O": "muazzam"
+    },
+    {
+        "date": "2024-04-27 18:42:10",
+        "grid": "['O', 'X', 'O'],['O', 'X', 'X'],['O', None, None] \n                        ",
+        "winner": [
+            "O",
+            "besos"
+        ],
+        "turns": 7,
+        "Player X": "jeffrey",
+        "Player O": "besos"
+    },
+    {
+        "date": "2024-04-27 18:43:44",
+        "grid": "['X', 'O', None],['X', 'O', None],['X', None, None] \n                        ",
+        "winner": [
+            "X",
+            "asd"
+        ],
+        "turns": 5,
+        "Player X": "asd",
+        "Player O": "asdkjh"
+    },
+    {
+        "date": "2024-04-27 18:43:51",
+        "grid": "['O', 'X', None],['O', 'X', None],['O', None, None] \n                        ",
+        "winner": [
+            "O",
+            "asbnmdas"
+        ],
+        "turns": 5,
+        "Player X": "asdasd",
+        "Player O": "asbnmdas"
+    }
+]
