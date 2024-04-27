@@ -8,21 +8,29 @@
 # - quit game button
 import tkinter as tk
 from gameEngine import gameEngine
+from winningScreen import WinScreen
 
 class Button(tk.Button):
-    def __init__(self, x, y, image):
-        super().__init__()
+    def __init__(self, x, y, image,command,master):
+        super().__init__(image = image, command = command,master = master)
         self.__x = x
         self.__y = y
         self.__image = image
+    
+    def getX(self):
+        return self.__x
+
+    def getY(self):
+        return self.__y
 
 class gameScreen:
-    def __init__(self, xPlayer, oPlayer):
+    def __init__(self, xPlayer, oPlayer, parent):
 
         self.__gameEngine = gameEngine(xPlayer, oPlayer)
 
         # initialize
-        self.root2 = tk.Tk()
+        self.parent = parent
+        self.root2 = tk.Toplevel()
         self.root2.geometry('400x400')
         self.root2.title('Game Screen')
 
@@ -31,29 +39,18 @@ class gameScreen:
         self.bottomframe = tk.Frame(self.root2)
 
         # creating photoimages
-        self.photoimage0 = tk.PhotoImage(file = 'Images/blankimage.png').subsample(2,2)
-        self.photoimage1 = tk.PhotoImage(file = 'Images/oicon.png')
-        self.photoimage2 = tk.PhotoImage(file = 'Images/xicon.png')
-
-        # creating lists for images and for grid
-        self.images = [self.photoimage0, self.photoimage1, self.photoimage2]
-        
-        # (TEMPORARY) creating game buttons 
-        # self.button1 = tk.Button(self.topframe, image = self.photoimage0, command = lambda:self.root2.destroy)
-        # self.button1.grid(row = 0, column = 0, padx = 5, pady = 5)
-        # self.button2 = tk.Button(self.topframe, image = self.photoimage1, command = lambda:self.root2.destroy)
-        # self.button2.grid(row = 1, column = 0, padx = 5, pady = 5)
+        self.photoimageBlank = tk.PhotoImage(file = 'Images/blankimage.png')
         
         self.__buttonGrid = []
 
         for row in range(3):
             for column in range(3):
-               self.__buttonGrid.append(Button(row, column, self.topframe,image = self.photoimage1, command = lambda:self.checkWinner()))
-               self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
+                self.__buttonGrid.append(Button(column, row, image = self.photoimageBlank, command = lambda row = row, column = column:self.checkWinner(row, column), master = self.topframe))
+                self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
         
 
         # create quit and reset buttons
-        self.quit_button = tk.Button(self.bottomframe, text = 'Quit', command = lambda:self.root2.destroy())
+        self.quit_button = tk.Button(self.bottomframe, text = 'Quit', command = lambda:self.parent.destroy())
         self.reset_button = tk.Button(self.bottomframe, text = 'Reset', command = lambda:self.resetGame())
 
         # grid quit and reset buttons
@@ -66,13 +63,27 @@ class gameScreen:
 
         self.root2.mainloop()
     
-    def checkWinner(self):
-        if not self.__gameEngine.checkWinner() is None:
+    def checkWinner(self, row, column):
+        # check if move can be made, and update grid in gameengine
+        self.__gameEngine.makeMove(column, row)
+
+        # update grid in gamescreen
+        tempimage = tk.PhotoImage(file = 'Images/' + self.__gameEngine.getTurn() + 'icon.png')
+        self.__buttonGrid[row*3+column].configure(image = tempimage)
+        self.__buttonGrid[row*3+column].photo = tempimage
+
+        # check for winner
+        if self.__gameEngine.checkWinner() == ('Tie', True):
+            w1 = WinScreen(None, self.parent)
+        elif not self.__gameEngine.checkWinner() is None:
+            self.root2.destroy()
+            w1 = WinScreen(self.__gameEngine.getTurn(), self.parent)
             pass
+        else:
+            # switch turns
+            self.__gameEngine.changeTurn()
     
     def resetGame(self):
         self.root2.destroy()
-        g1 = gameScreen()
-
-
+        g1 = gameScreen(self.__gameEngine.getPlayerX(), self.__gameEngine.getPlayerO(), self.parent)
 

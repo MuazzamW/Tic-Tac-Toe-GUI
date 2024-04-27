@@ -25,8 +25,16 @@ class gameEngine:
         self.__xPlayer = xPlayer
         self.__oPlayer = oPlayer
         self.reset()
-        
     
+    def getPlayerX(self):
+        return self.__xPlayer
+    
+    def getPlayerO(self):
+        return self.__oPlayer
+    
+    def getTurn(self):
+        return self.__turn
+
     def reset(self):
         self.__grid = [[None, None, None], [None, None, None], [None, None, None]]
         self.__turn = random.choice(['X', 'O'])
@@ -34,11 +42,13 @@ class gameEngine:
         self.__game_over = False
     
     def makeMove(self,xPos, yPos):
-        if not self.__grid[yPos][xPos] is None:
+        if self.__grid[yPos][xPos] is None:
             self.__grid[yPos][xPos] = self.__turn
         else:
             raise LocationError("Invalid location, please try again.") 
         self.__move_counter += 1
+    
+    def changeTurn(self):
         self.__turn = "X" if self.__turn == "O" else "O"
     
     def checkWinner(self):
