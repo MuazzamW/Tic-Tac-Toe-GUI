@@ -9,19 +9,7 @@
 import tkinter as tk
 from gameEngine import gameEngine
 from winningScreen import WinScreen
-
-class Button(tk.Button):
-    def __init__(self, x, y, image,command,master):
-        super().__init__(image = image, command = command,master = master)
-        self.__x = x
-        self.__y = y
-        self.__image = image
-    
-    def getX(self):
-        return self.__x
-
-    def getY(self):
-        return self.__y
+from button import Button
 
 class gameScreen:
     def __init__(self, xPlayer, oPlayer, parent):
@@ -84,11 +72,11 @@ class gameScreen:
             self.__gameEngine.writeToLog()
             self.root2.destroy()
             w1 = WinScreen(self.__gameEngine.getTurn(), self.parent)
-            
             pass
         else:
             # switch turns
             self.__gameEngine.changeTurn()
+            self.player.config(text = self.__gameEngine.getTurn() + "'s turn")
     
     def resetGame(self):
         self.root2.destroy()

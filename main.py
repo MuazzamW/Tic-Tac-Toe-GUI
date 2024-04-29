@@ -10,6 +10,7 @@
 import tkinter as tk
 from gameScreen import gameScreen
 from audioPlayer import AudioPlayer
+from gameLogScreen import gameLogScreen
 import threading
 
 class Welcome:
@@ -35,13 +36,15 @@ class Welcome:
         self.new_game.grid(row = 1, column = 1, padx = 5, pady = 5)
         self.view_log.grid(row = 1, column = 2, padx = 5, pady = 5)
 
-        #open audio player on a new thread
-        t1 = threading.Thread(target = AudioPlayer)
-        t1.start()
+        # #open audio player on a new thread
+        # t1 = threading.Thread(target = AudioPlayer)
+        # t1.start()
 
-        #start game on new thread
-        t2 = threading.Thread(target = self.root.mainloop)
-        t2.start()
+        # #start game on new thread
+        # t2 = threading.Thread(target = self.root.mainloop)
+        # t2.start()
+
+        self.root.mainloop()
 
     def startGame(self):
         # withdraw main window
@@ -80,7 +83,7 @@ class Welcome:
 
     def viewGameLog(self):
         # instantiate gameLogScreen
-        pass
+        log1 = gameLogScreen("GameLog/data.json")
 
 
 w1 = Welcome()

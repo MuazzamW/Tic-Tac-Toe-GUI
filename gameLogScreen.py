@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, Y, LEFT, RIGHT, BOTH, VERTICAL
 from gameEngine import gameEngine
-from gameScreen import logButton 
 from gameLogHandler import gameLogHandler
+from button import Button
 
 class logButton(tk.Button):
     def __init__(self, index, text, command, master):
@@ -13,19 +13,17 @@ class logButton(tk.Button):
         return self.__index
 
 class gameLogScreen():
-    
     def __init__(self,fileName):
         self.__fileName = fileName
         # creating logscreen as a toplevel that can be shown without destroying the previous screen (everything else about it is the same)
-        self.root = tk.Tk()
-        self.root.geometry('400x400')
-        self.root.title('Game Logs')
+        self.root0 = tk.Toplevel()
+        self.root0.geometry('400x400')
+        self.root0.title('Game Logs')
         self.__gameLogHandler = gameLogHandler(fileName)
-
         
         # creating two frames -> top frame is for the title and bottom is to show all the game logs
-        self.topframe = tk.Frame(self.root)
-        self.bottomframe = tk.Frame(self.root)
+        self.topframe = tk.Frame(self.root0)
+        self.bottomframe = tk.Frame(self.root0)
 
         # packing the frames
         self.topframe.pack()
@@ -54,18 +52,17 @@ class gameLogScreen():
         #adding buttons to bottom frame
         for i in range(len(self.__gameLogHandler.returnLogs())):
             log = self.__gameLogHandler.returnLogs()[i]
-            logButton(i, text = log["date"], command = lambda i = i:self.showLog(log), master = self.frame).grid(row = i, column = 0, padx = 5, pady = 5)
-
+            logButton(i, text = log["date"], command = lambda i = i:self.showLog(i), master = self.frame).grid(row = i, column = 0, padx = 5, pady = 5)
 
         # placing labels
         self.title.grid(row = 0, column = 1, padx= 0, pady= 0)
         
 
-        self.root.mainloop()
     
-    def showLog(self,log):
+    def showLog(self,i):
+        log = self.__gameLogHandler.returnLogs()[i]
         # open on top of the current window
-        self.top = tk.Toplevel(self.root)
+        self.top = tk.Toplevel(self.root0)
         self.top.geometry('400x400')
         self.top.title('Game Log')
         self.topframe = tk.Frame(self.top)
@@ -79,14 +76,13 @@ class gameLogScreen():
         tk.Label(self.topframe, text = "Date: " + log["date"]).grid(row = 1, column = 1, padx= 0, pady= 0)
         tk.Label(self.topframe, text = "Player X: " + log["Player X"]).grid(row = 2, column = 1, padx= 0, pady= 0)
         tk.Label(self.topframe, text = "Player O: " + log["Player O"]).grid(row = 3, column = 1, padx= 0, pady= 0)
-        tk.Label(self.topframe, text = "Winner: " + log["winner"]).grid(row = 4, column = 1, padx= 0, pady= 0)
+        tk.Label(self.topframe, text = "Winner: " + str(log["winner"])).grid(row = 4, column = 1, padx= 0, pady= 0)
         tk.Label(self.topframe, text = "Turns: " + str(log["turns"])).grid(row = 5, column = 1, padx= 0, pady= 0)
         tk.Label(self.topframe, text = "Grid:").grid(row = 6, column = 1, padx= 0, pady= 0)
         # adding labels to the bottom frame
         tk.Label(self.bottomframe, text = log["grid"]).grid(row = 0, column = 0, padx= 0, pady= 0)
         # creating a back button
-        tk.Button(self.bottomframe, text = 'Back', command = lambda:self.top.destroy()).grid(row = 1, column = 1, padx= 0, pady= 0)
-        self.top.mainloop()
+        tk.Button(self.bottomframe, text = 'Back', command = lambda:self.top.destroy()).grid(row = 1, column = 0, padx= 0, pady= 0)
 # gl
 
-s1 = gameLogScreen("GameLog/data.json")
+# s1 = gameLogScreen("GameLog/data.json")

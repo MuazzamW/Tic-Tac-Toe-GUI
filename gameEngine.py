@@ -87,9 +87,9 @@ class gameEngine:
             entry = {
                 #format grid as 3x3 grid
                 "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "grid": f"""{self.__grid[0]},{self.__grid[1]},{self.__grid[2]} 
+                "grid": f"""{self.__grid[0]}\n{self.__grid[1]}\n{self.__grid[2]} 
                         """,
-                "winner": (self.checkWinner()[0], self.__xPlayer if self.checkWinner()[0] == "X" else self.__oPlayer if self.checkWinner()[0] == "O" else "Tie"),
+                "winner": (self.checkWinner()[0], self.__xPlayer if self.checkWinner()[0] == "X" else self.__oPlayer if self.checkWinner()[0] == "O" else ""),
                 "turns": self.__move_counter,
                 "Player X": self.__xPlayer,
                 "Player O": self.__oPlayer

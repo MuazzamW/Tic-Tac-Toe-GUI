@@ -7,19 +7,19 @@ from tkinter import ttk, Y, LEFT, RIGHT, BOTH, VERTICAL
 class AudioPlayer:
     def __init__(self):
         self.__playlistPath = "Aasees_Playlist"
-        self.root = tk.Tk()
-        self.root.title("Audio Player")
-        self.root.geometry("400x400")
-        self.root.resizable(False, False)
+        self.root2 = tk.Tk()
+        self.root2.title("Audio Player")
+        self.root2.geometry("400x400")
+        self.root2.resizable(False, False)
 
         self.__playlist = [f for f in listdir(self.__playlistPath) if isfile(join(self.__playlistPath, f))]
         self.__currentSong = 0
         self.__isPlaying = False
 
          # creting three frames
-        self.topframe = tk.Frame(self.root)
-        self.middleframe = tk.Frame(self.root)
-        self.bottomframe = tk.Frame(self.root)
+        self.topframe = tk.Frame(self.root2)
+        self.middleframe = tk.Frame(self.root2)
+        self.bottomframe = tk.Frame(self.root2)
 
         # packing the frames
         self.topframe.pack()
@@ -62,7 +62,7 @@ class AudioPlayer:
         # placing labels
         self.title.grid(row = 0, column = 1, padx= 0, pady= 0)
 
-        self.root.mainloop()
+        self.root2.mainloop()
     
     def playSong(self, index):
         pygame.mixer.init()
@@ -82,4 +82,4 @@ class AudioPlayer:
             self.__isPlaying = False
     
 
-a1 = AudioPlayer()
+# a1 = AudioPlayer()

@@ -5,6 +5,7 @@
 #     - quit game button
 #     - return to welcome screen
 import tkinter as tk
+from gameLogScreen import gameLogScreen
 
 class WinScreen():
     def __init__(self, winner, parent):
@@ -27,7 +28,7 @@ class WinScreen():
 
         # placing labels
         self.title.grid(row = 0, column = 1, padx= 5, pady= 5)
-        self.text.grid(row = 1, column = 0, padx = 5, pady = 5)
+        self.text.grid(row = 1, column = 1, padx = 5, pady = 5)
 
         # creating buttons
         self.quit_button = tk.Button(self.root, text = 'Quit', command = lambda:self.parent.destroy())
@@ -46,6 +47,5 @@ class WinScreen():
         self.parent.deiconify()
 
     def viewGameLog(self):
-        # ----- have gamelog be toplevel becuase we don't want to withdraw this class
         # instantiate gameLogScreen
-        pass
+        log1 = gameLogScreen("GameLog/data.json")
