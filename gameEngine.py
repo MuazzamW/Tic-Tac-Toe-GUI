@@ -1,5 +1,6 @@
 import random
 import json
+import datetime
 
 #class gameEngine
 # Description: This class is the main engine for the game, makes all decisions
@@ -25,7 +26,6 @@ class gameEngine:
         self.__xPlayer = xPlayer
         self.__oPlayer = oPlayer
         self.reset()
-        
     
     def getPlayerX(self):
         return self.__xPlayer
@@ -43,12 +43,13 @@ class gameEngine:
         self.__game_over = False
     
     def makeMove(self,xPos, yPos):
-        print(self.__grid[yPos][xPos])
         if self.__grid[yPos][xPos] is None:
             self.__grid[yPos][xPos] = self.__turn
         else:
             raise LocationError("Invalid location, please try again.") 
         self.__move_counter += 1
+    
+    def changeTurn(self):
         self.__turn = "X" if self.__turn == "O" else "O"
     
     def checkWinner(self):
@@ -80,23 +81,30 @@ class gameEngine:
         return None
     
     def writeToLog(self):
-        data = {
-            #format grid as 3x3 grid
-            "grid": f"""
-                    {self.__grid[0]}
-                    {self.__grid[1]}
-                    {self.__grid[2]} 
-                    """,
-            "winner": "xPLayer", #self.checkWinner()[0],
-            "turns": self.__move_counter,
-            "Player X": self.__xPlayer,
-            "Player O": self.__oPlayer
-        }
-        with open('GameLog/gameLog.json', 'a', encoding='utf-8') as f:
+
+        with open('GameLog/data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)    
+            entry = {
+                #format grid as 3x3 grid
+                "date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "grid": f"""{self.__grid[0]}\n{self.__grid[1]}\n{self.__grid[2]} 
+                        """,
+                "winner": (self.checkWinner()[0], self.__xPlayer if self.checkWinner()[0] == "X" else self.__oPlayer if self.checkWinner()[0] == "O" else ""),
+                "turns": self.__move_counter,
+                "Player X": self.__xPlayer,
+                "Player O": self.__oPlayer
+            }
+            data.append(entry)
+
+        with open('GameLog/data.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
-
-
+    
+    def loadLogs(self):
+        with open('GameLog/data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        return data
 
 class LocationError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
+

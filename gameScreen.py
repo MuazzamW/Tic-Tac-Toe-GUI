@@ -8,28 +8,18 @@
 # - quit game button
 import tkinter as tk
 from gameEngine import gameEngine
-
-class Button(tk.Button):
-    def __init__(self, x, y, image,command,master):
-        super().__init__(image = image, command = command,master = master)
-        self.__x = x
-        self.__y = y
-        self.__image = image
-    
-    def getX(self):
-        return self.__x
-
-    def getY(self):
-        return self.__y
+from winningScreen import WinScreen
+from button import Button
 
 class gameScreen:
-    def __init__(self, xPlayer, oPlayer):
+    def __init__(self, xPlayer, oPlayer, parent):
 
         self.__gameEngine = gameEngine(xPlayer, oPlayer)
 
         # initialize
-        self.root2 = tk.Tk()
-        self.root2.geometry('400x400')
+        self.parent = parent
+        self.root2 = tk.Toplevel()
+        self.root2.geometry('400x415')
         self.root2.title('Game Screen')
 
         # creating two frames
@@ -43,17 +33,21 @@ class gameScreen:
 
         for row in range(3):
             for column in range(3):
-               self.__buttonGrid.append(Button(column, row, image = self.photoimageBlank, command = lambda row = row, column = column:self.checkWinner(row, column), master = self.topframe))
-               self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
+                self.__buttonGrid.append(Button(column, row, image = self.photoimageBlank, command = lambda row = row, column = column:self.checkWinner(row, column), master = self.topframe))
+                self.__buttonGrid[-1].grid(row = row, column = column, padx = 5, pady = 5) 
         
 
         # create quit and reset buttons
-        self.quit_button = tk.Button(self.bottomframe, text = 'Quit', command = lambda:self.root2.destroy())
+        self.quit_button = tk.Button(self.bottomframe, text = 'Quit', command = lambda:self.parent.destroy())
         self.reset_button = tk.Button(self.bottomframe, text = 'Reset', command = lambda:self.resetGame())
 
         # grid quit and reset buttons
-        self.quit_button.grid(row = 0, column = 0, padx = 5, pady = 5)
-        self.reset_button.grid(row = 0, column = 1, padx = 5, pady = 5)
+        self.quit_button.grid(row = 1, column = 0, padx = 5, pady = 5)
+        self.reset_button.grid(row = 1, column = 1, padx = 5, pady = 5)
+
+        #player indication
+        self.player = tk.Label(self.bottomframe, text = self.__gameEngine.getTurn() + "'s turn")
+        self.player.grid(row = 0, column = 2, padx = 5, pady = 5)
 
         # pack frames
         self.topframe.pack()
@@ -62,27 +56,29 @@ class gameScreen:
         self.root2.mainloop()
     
     def checkWinner(self, row, column):
-        # check for winner and switch player image, update in gameengine
-        print('button clicked')
-        print(column, row)
-
         # check if move can be made, and update grid in gameengine
         self.__gameEngine.makeMove(column, row)
 
         # update grid in gamescreen
-        tempimage = tk.PhotoImage(file = 'Images/xicon.png')
-        self.__buttonGrid[column*3+row].configure(image = tempimage)
-        self.__buttonGrid[column*3+row].photo = tempimage
+        tempimage = tk.PhotoImage(file = 'Images/' + self.__gameEngine.getTurn() + 'icon.png')
+        self.__buttonGrid[row*3+column].configure(image = tempimage)
+        self.__buttonGrid[row*3+column].photo = tempimage
 
-        print(self.__buttonGrid[column*3+row].getX(), self.__buttonGrid[column*3+row].getY())
-        print(row*3+column)
-
-        
-
-        if not self.__gameEngine.checkWinner() is None:
+        # check for winner
+        if self.__gameEngine.checkWinner() == ('Tie', True):
+            self.__gameEngine.writeToLog()
+            w1 = WinScreen(None, self.parent)
+        elif not self.__gameEngine.checkWinner() is None:
+            self.__gameEngine.writeToLog()
+            self.root2.destroy()
+            w1 = WinScreen(self.__gameEngine.getTurn(), self.parent)
             pass
+        else:
+            # switch turns
+            self.__gameEngine.changeTurn()
+            self.player.config(text = self.__gameEngine.getTurn() + "'s turn")
     
     def resetGame(self):
         self.root2.destroy()
-        g1 = gameScreen(self.__gameEngine.getPlayerX(), self.__gameEngine.getPlayerO())
+        g1 = gameScreen(self.__gameEngine.getPlayerX(), self.__gameEngine.getPlayerO(), self.parent)
 

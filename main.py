@@ -9,7 +9,9 @@
 # - create a gameEngine object
 import tkinter as tk
 from gameScreen import gameScreen
+from audioPlayer import AudioPlayer
 from gameLogScreen import gameLogScreen
+import threading
 
 class Welcome:
     def __init__(self):
@@ -34,9 +36,20 @@ class Welcome:
         self.new_game.grid(row = 1, column = 1, padx = 5, pady = 5)
         self.view_log.grid(row = 1, column = 2, padx = 5, pady = 5)
 
+        # #open audio player on a new thread
+        # t1 = threading.Thread(target = AudioPlayer)
+        # t1.start()
+
+        # #start game on new thread
+        # t2 = threading.Thread(target = self.root.mainloop)
+        # t2.start()
+
         self.root.mainloop()
 
     def startGame(self):
+        # withdraw main window
+        self.root.withdraw()
+
         # initialize window that asks for user names
         self.top = tk.Toplevel(self.root)
         
@@ -65,14 +78,12 @@ class Welcome:
         self.player2 = self.entry2.get()
 
         # close current screen and open game
-        self.root.destroy()
-        g1 = gameScreen(self.player1, self.player2)
+        self.top.destroy()
+        g1 = gameScreen(self.player1, self.player2, self.root)
 
     def viewGameLog(self):
-        logScreen = gameLogScreen()
-        # ----- have gamelog be toplevel becuase we don't want to withdraw this class
         # instantiate gameLogScreen
-        pass
+        log1 = gameLogScreen("GameLog/data.json")
 
 
 w1 = Welcome()
