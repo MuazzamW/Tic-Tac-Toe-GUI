@@ -100,7 +100,3 @@ class gameEngine:
 class LocationError(Exception):
     def __init__(self,msg):
         super().__init__(msg)
-
-
-g1 = gameEngine()
-g1.writeToLog()

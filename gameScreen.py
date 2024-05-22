@@ -70,7 +70,7 @@ class gameScreen:
         self.__gameEngine.makeMove(column, row)
 
         # update grid in gamescreen
-        tempimage = tk.PhotoImage(file = 'Images/Xicon.png')
+        tempimage = tk.PhotoImage(file = 'Images/xicon.png')
         self.__buttonGrid[column*3+row].configure(image = tempimage)
         self.__buttonGrid[column*3+row].photo = tempimage
 
