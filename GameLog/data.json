@@ -113,5 +113,27 @@
         "turns": 9,
         "Player X": "",
         "Player O": ""
+    },
+    {
+        "date": "2024-04-30 08:16:41",
+        "grid": "[None, 'X', 'X']\n['X', 'O', 'X']\n['O', 'O', 'O'] \n                        ",
+        "winner": [
+            "O",
+            "g"
+        ],
+        "turns": 8,
+        "Player X": "h",
+        "Player O": "g"
+    },
+    {
+        "date": "2024-05-22 08:50:04",
+        "grid": "['X', None, None]\n['O', 'O', 'O']\n['X', None, 'X'] \n                        ",
+        "winner": [
+            "O",
+            ""
+        ],
+        "turns": 6,
+        "Player X": "",
+        "Player O": ""
     }
 ]
