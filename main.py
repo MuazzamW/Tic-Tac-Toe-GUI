@@ -9,7 +9,7 @@
 # - create a gameEngine object
 import tkinter as tk
 from gameScreen import gameScreen
-from audioPlayer import AudioPlayer
+#from audioPlayer import AudioPlayer
 from gameLogScreen import gameLogScreen
 import threading
 
